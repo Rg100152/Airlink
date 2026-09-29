@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIRLINK - Explore Destinations</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables (Consistent with index.html) */
+        :root {
+            --primary-blue: #002D62;
+            --saffron: #FF9933;
+            --green: #138808;
+            --white: #ffffff;
+            --light-gray: #f4f4f4;
+            --text-dark: #333333;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: var(--text-dark);
+        }
+
+        /* Navigation Bar */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo span {
+            color: var(--saffron);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--saffron);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-login {
+            padding: 8px 20px;
+            border: 2px solid var(--primary-blue);
+            background: transparent;
+            color: var(--primary-blue);
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-login:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-signup {
+            padding: 8px 20px;
+            border: none;
+            background: var(--saffron);
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-signup:hover {
+            background: #e68a2e;
+        }
+
+        /* Page Header Banner */
+        .page-header {
+            background: linear-gradient(rgba(0, 45, 98, 0.8), rgba(0, 45, 98, 0.8)), url('images/airport-lounge.jpg') no-repeat center center/cover;
+            padding: 80px 5%;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header h1 span {
+            color: var(--saffron);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Main Content Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 5%;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--saffron);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Destinations Grid */
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .destination-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .destination-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .destination-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--saffron);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .destination-info {
+            padding: 20px;
+            position: relative;
+            background: white;
+            z-index: 2;
+        }
+
+        .destination-info h3 {
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+
+        .destination-info p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .destination-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--green);
+        }
+
+        .price span {
+            font-size: 0.8rem;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .btn-explore {
+            padding: 8px 15px;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .btn-explore:hover {
+            background: var(--saffron);
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tabs button {
+            padding: 10px 25px;
+            border: 2px solid var(--primary-blue);
+            background: transparent;
+            color: var(--primary-blue);
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-tabs button.active, .filter-tabs button:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-blue);
+            color: white;
+            padding: 50px 5% 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 30px;
+        }
+
+        .footer-col h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--saffron);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            .filter-tabs {
+                gap: 10px;
+            }
+            .filter-tabs button {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo.png" alt="AIRLINK Logo">
+                AIR<span>LINK</span>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="Destinations.html" class="active">Destinations</a></li>
+                <li><a href="Offers.html">Offers</a></li>
+                <li><a href="Support.html">Support</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="Sign In.html"><button class="btn-login">Sign In</button></a>
+                <a href="booking.htmll"><button class="btn-signup">Book Now</button></a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header Banner -->
+    <section class="page-header">
+        <h1>Explore <span>Incredible India</span></h1>
+        <p>From the snowy Himalayas to the sunny beaches of Goa, discover your next adventure with AIRLINK.</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        
+        <!-- Filter Tabs -->
+        <div class="filter-tabs">
+            <button class="active" onclick="filterDestinations('all', this)">All Destinations</button>
+            <button onclick="filterDestinations('beaches', this)">Beaches</button>
+            <button onclick="filterDestinations('mountains', this)">Mountains</button>
+            <button onclick="filterDestinations('heritage', this)">Heritage</button>
+            <button onclick="filterDestinations('metro', this)">Metro Cities</button>
+        </div>
+
+        <!-- Destinations Grid -->
+        <div class="destinations-grid" id="destinationsGrid">
+            
+            <!-- Destination 1: Goa -->
+            <div class="destination-card" data-category="beaches">
+                <img src="images/plane-2.jpg" alt="Goa Beaches">
+                <div class="card-badge">Popular</div>
+                <div class="destination-info">
+                    <h3>Goa</h3>
+                    <p>The land of sun, sand, and sea. Perfect for a relaxing vacation or a vibrant party scene.</p>
+                    <div class="destination-footer">
+                        <div class="price">₹3,499 <span>onwards</span></div>
+                        <a href="flights.html" class="btn-explore">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Destination 2: Leh Ladakh -->
+            <div class="destination-card" data-category="mountains">
+                <img src="images/hero-book.png" alt="Leh Ladakh Mountains">
+                <div class="card-badge">Adventure</div>
+                <div class="destination-info">
+                    <h3>Leh Ladakh</h3>
+                    <p>Breathtaking landscapes, high mountain passes, and the serene Pangong Lake.</p>
+                    <div class="destination-footer">
+                        <div class="price">₹5,200 <span>onwards</span></div>
+                        <a href="flights.html" class="btn-explore">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Destination 3: Jaipur -->
+            <div class="destination-card" data-category="heritage">
+                <img src="images/airport-info.jpg" alt="Jaipur Heritage">
+                <div class="card-badge">Heritage</div>
+                <div class="destination-info">
+                    <h3>Jaipur</h3>
+                    <p>The Pink City. Explore majestic forts, royal palaces, and rich Rajasthani culture.</p>
+                    <div class="destination-footer">
+                        <div class="price">₹2,800 <span>onwards</span></div>
+                        <a href="flights.html" class="btn-explore">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Destination 4: Kerala -->
+            <div class="destination-card" data-category="mountains">
+                <img src="images/airport-lounge.jpg" alt="Kerala Backwaters">
+                <div class="card-badge">Nature</div>
+                <div class="destination-info">
+                    <h3>Kerala</h3>
+                    <p>God's Own Country. Cruise through tranquil backwaters and lush green tea plantations.</p>
+                    <div class="destination-footer">
+                        <div class="price">₹4,100 <span>onwards</span></div>
+                        <a href="flights.html" class="btn-explore">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Destination 5: Mumbai -->
+            <div class="destination-card" data-category="metro">
+                <img src="images/plane-1.jpg" alt="Mumbai City">
+                <div class="card-badge">Metro</div>
+                <div class="destination-info">
+                    <h3>Mumbai</h3>
+                    <p>The City of Dreams. Experience the fast-paced life, Bollywood, and Marine Drive.</p>
+                    <div class="destination-footer">
+                        <div class="price">₹3,200 <span>onwards</span></div>
+                        <a href="flights.html" class="btn-explore">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Destination 6: Andaman -->
+            <div class="destination-card" data-category="beaches">
+                <img src="images/nearby-hotels.jpg" alt="Andaman Islands">
+                <div class="card-badge">Beaches</div>
+                <div class="destination-info">
+                    <h3>Andaman Islands</h3>
+                    <p>Pristine beaches, crystal clear waters, and amazing scuba diving experiences.</p>
+                    <div class="destination-footer">
+                        <div class="price">₹6,500 <span>onwards</span></div>
+                        <a href="flights.html" class="btn-explore">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>AIRLINK</h4>
+                <p>Your trusted partner for domestic air travel across India. Connecting cities, connecting people.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="flights.html">Flight Status</a></li>
+                    <li><a href="check-in.jpg">Web Check-in</a></li>
+                    <li><a href="baggage-info.jpg">Baggage Info</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="Support.html">Contact Us</a></li>
+                    <li><a href="Support.html">FAQs</a></li>
+                    <li><a href="Support.html">Refund Policy</a></li>
+                    <li><a href="Support.html">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect With Us</h4>
+                <ul>
+                    <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 AIRLINK. All rights reserved. Made with ❤️ in India.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Filtering -->
+    <script>
+        function filterDestinations(category, buttonElement) {
+            // 1. Update active button styling
+            const buttons = document.querySelectorAll('.filter-tabs button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
+
+            // 2. Filter the destination cards
+            const cards = document.querySelectorAll('.destination-card');
+            
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

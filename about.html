@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIRLINK - About Us</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables (Consistent with index.html) */
+        :root {
+            --primary-blue: #002D62;
+            --saffron: #FF9933;
+            --green: #138808;
+            --white: #ffffff;
+            --light-gray: #f4f4f4;
+            --text-dark: #333333;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: var(--text-dark);
+        }
+
+        /* Navigation Bar */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo span {
+            color: var(--saffron);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--saffron);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-login {
+            padding: 8px 20px;
+            border: 2px solid var(--primary-blue);
+            background: transparent;
+            color: var(--primary-blue);
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-login:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-signup {
+            padding: 8px 20px;
+            border: none;
+            background: var(--saffron);
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-signup:hover {
+            background: #e68a2e;
+        }
+
+        /* Page Header Banner */
+        .page-header {
+            background: linear-gradient(rgba(0, 45, 98, 0.85), rgba(0, 45, 98, 0.85)), url('images/airport-info.jpg') no-repeat center center/cover;
+            padding: 80px 5%;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Main Content Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 5%;
+        }
+
+        /* Story Section */
+        .story-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .story-text h2 {
+            font-size: 2.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .story-text h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--saffron);
+            margin-top: 10px;
+            border-radius: 2px;
+        }
+
+        .story-text p {
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .story-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--primary-blue);
+            padding: 60px 5%;
+            color: white;
+            margin-bottom: 80px;
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item i {
+            font-size: 2.5rem;
+            color: var(--saffron);
+            margin-bottom: 15px;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-item p {
+            font-size: 1rem;
+            color: #ccc;
+        }
+
+        /* Mission & Vision */
+        .mission-vision {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .mv-card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--saffron);
+            text-align: center;
+        }
+
+        .mv-card i {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .mv-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .mv-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Team Section */
+        .team-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .team-section h2 {
+            font-size: 2.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 40px;
+        }
+
+        .team-section h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--saffron);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .team-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 4px solid var(--light-gray);
+        }
+
+        .team-card h4 {
+            font-size: 1.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+
+        .team-card p {
+            color: var(--saffron);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .team-card .socials a {
+            color: #888;
+            margin: 0 5px;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .team-card .socials a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-blue);
+            color: white;
+            padding: 50px 5% 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 30px;
+        }
+
+        .footer-col h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--saffron);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            nav ul {
+                display: none;
+            }
+            .story-section, .mission-vision {
+                grid-template-columns: 1fr;
+            }
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo.png" alt="AIRLINK Logo">
+                AIR<span>LINK</span>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="Destinations.html">Destinations</a></li>
+                <li><a href="Offers.html">Offers</a></li>
+                <li><a href="Support.html">Support</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="Sign In.html"><button class="btn-login">Sign In</button></a>
+                <a href="booking.htm"><button class="btn-signup">Book Now</button></a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>About AIRLINK</h1>
+        <p>Connecting India to the world, one flight at a time. Discover our story, our mission, and the people behind the wings.</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        
+        <!-- Story Section -->
+        <section class="story-section">
+            <div class="story-text">
+                <h2>Our Story</h2>
+                <p>Founded in 2010, AIRLINK began with a simple vision: to make air travel across India accessible, affordable, and enjoyable for every citizen. What started as a small regional carrier with just three aircraft has now grown into one of the country's most trusted domestic airlines.</p>
+                <p>Over the past decade, we have expanded our network to over 45 destinations, connecting major metros like Delhi, Mumbai, and Bangalore to the hidden gems of the Northeast and the serene beaches of the South. We take pride in our Indian heritage and strive to reflect the warmth and hospitality of our nation in every flight we operate.</p>
+                <p>Today, AIRLINK is not just an airline; it is a bridge that connects families, businesses, and cultures across the length and breadth of Incredible India.</p>
+            </div>
+            <div class="story-image">
+                <img src="images/plane-1.jpg" alt="AIRLINK Aircraft">
+            </div>
+        </section>
+
+    </div> <!-- Close Container -->
+
+    <!-- Stats Section (Full Width) -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <i class="fas fa-plane"></i>
+                <h3>45+</h3>
+                <p>Destinations Covered</p>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-users"></i>
+                <h3>10M+</h3>
+                <p>Happy Passengers</p>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-clock"></i>
+                <h3>99.2%</h3>
+                <p>On-Time Performance</p>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-award"></i>
+                <h3>15+</h3>
+                <p>Industry Awards</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Second Container for Mission/Team -->
+    <div class="container">
+
+        <!-- Mission & Vision -->
+        <section class="mission-vision">
+            <div class="mv-card">
+                <i class="fas fa-bullseye"></i>
+                <h3>Our Mission</h3>
+                <p>To provide safe, reliable, and affordable air travel to every corner of India, while delivering a world-class customer experience that reflects the warmth of Indian hospitality.</p>
+            </div>
+            <div class="mv-card">
+                <i class="fas fa-eye"></i>
+                <h3>Our Vision</h3>
+                <p>To be the most preferred airline in India, known for our operational excellence, customer-centric approach, and commitment to sustainable aviation.</p>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="team-section">
+            <h2>Meet Our Leadership</h2>
+            <div class="team-grid">
+                <!-- Team Member 1 -->
+                <div class="team-card">
+                    <img src="images/logo.png" alt="CEO"> <!-- Replace with a real image if available -->
+                    <h4>Rajesh Kumar</h4>
+                    <p>Chief Executive Officer</p>
+                    <div class="socials">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <!-- Team Member 2 -->
+                <div class="team-card">
+                    <img src="images/logo.png" alt="COO"> <!-- Replace with a real image if available -->
+                    <h4>Priya Sharma</h4>
+                    <p>Chief Operating Officer</p>
+                    <div class="socials">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <!-- Team Member 3 -->
+                <div class="team-card">
+                    <img src="images/logo.png" alt="CFO"> <!-- Replace with a real image if available -->
+                    <h4>Amit Patel</h4>
+                    <p>Chief Financial Officer</p>
+                    <div class="socials">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <!-- Team Member 4 -->
+                <div class="team-card">
+                    <img src="images/logo.png" alt="CTO"> <!-- Replace with a real image if available -->
+                    <h4>Sneha Reddy</h4>
+                    <p>Chief Technology Officer</p>
+                    <div class="socials">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>AIRLINK</h4>
+                <p>Your trusted partner for domestic air travel across India. Connecting cities, connecting people.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="flights.html">Flight Status</a></li>
+                    <li><a href="check-in.jpg">Web Check-in</a></li>
+                    <li><a href="baggage-info.jpg">Baggage Info</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="Support.html">Contact Us</a></li>
+                    <li><a href="Support.html">FAQs</a></li>
+                    <li><a href="Support.html">Refund Policy</a></li>
+                    <li><a href="Support.html">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect With Us</h4>
+                <ul>
+                    <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 AIRLINK. All rights reserved. Made with ❤️ in India.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

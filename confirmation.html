@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIRLINK - Booking Confirmed</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables (Consistent with index.html) */
+        :root {
+            --primary-blue: #002D62;
+            --saffron: #FF9933;
+            --green: #138808;
+            --white: #ffffff;
+            --light-gray: #f4f4f4;
+            --text-dark: #333333;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: var(--text-dark);
+        }
+
+        /* Navigation Bar */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo span {
+            color: var(--saffron);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--saffron);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-login {
+            padding: 8px 20px;
+            border: 2px solid var(--primary-blue);
+            background: transparent;
+            color: var(--primary-blue);
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-login:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-signup {
+            padding: 8px 20px;
+            border: none;
+            background: var(--saffron);
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-signup:hover {
+            background: #e68a2e;
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 5%;
+        }
+
+        /* Success Card */
+        .success-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .success-header {
+            background: linear-gradient(rgba(19, 136, 8, 0.9), rgba(19, 136, 8, 0.9)), url('images/payment-success.png') no-repeat center center/cover;
+            padding: 40px 20px;
+            color: white;
+        }
+
+        .success-header i {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            color: #fff;
+            animation: popIn 0.5s ease-out;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .success-header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .success-header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Ticket Section */
+        .ticket-section {
+            padding: 40px;
+        }
+
+        .booking-ref {
+            display: inline-block;
+            background: var(--light-gray);
+            padding: 10px 25px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border: 1px dashed var(--saffron);
+        }
+
+        .booking-ref h3 {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .booking-ref span {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            letter-spacing: 2px;
+        }
+
+        /* Flight Details Grid */
+        .flight-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: left;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .detail-item h4 {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .detail-item p {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .detail-item p.highlight {
+            color: var(--green);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-download {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+        }
+
+        .btn-download:hover {
+            background: #001f45;
+        }
+
+        .btn-home {
+            background: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+        }
+
+        .btn-home:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* Important Info */
+        .important-info {
+            background: #fff8e6;
+            border-left: 4px solid var(--saffron);
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .important-info h4 {
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .important-info ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .important-info ul li {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .important-info ul li i {
+            color: var(--saffron);
+            margin-top: 4px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-blue);
+            color: white;
+            padding: 50px 5% 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 30px;
+        }
+
+        .footer-col h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--saffron);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            .flight-details-grid {
+                grid-template-columns: 1fr;
+            }
+            .success-header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo.png" alt="AIRLINK Logo">
+                AIR<span>LINK</span>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="Destinations.html">Destinations</a></li>
+                <li><a href="Offers.html">Offers</a></li>
+                <li><a href="Support.html">Support</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="Sign In.html"><button class="btn-login">Sign In</button></a>
+                <a href="booking.html"><button class="btn-signup">Book Now</button></a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        
+        <div class="success-card">
+            <!-- Success Header -->
+            <div class="success-header">
+                <i class="fas fa-check-circle"></i>
+                <h1>Booking Confirmed!</h1>
+                <p>Your flight has been successfully booked. Have a safe journey!</p>
+            </div>
+
+            <!-- Ticket Details -->
+            <div class="ticket-section">
+                
+                <div class="booking-ref">
+                    <h3>Booking Reference (PNR)</h3>
+                    <span>AI7842X</span>
+                </div>
+
+                <div class="flight-details-grid">
+                    <div class="detail-item">
+                        <h4>Passenger Name</h4>
+                        <p>Rahul Sharma</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>Flight Number</h4>
+                        <p>AI-804</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>From</h4>
+                        <p>Delhi (DEL)</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>To</h4>
+                        <p>Mumbai (BOM)</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>Departure Date & Time</h4>
+                        <p>15 Nov 2024, 06:00 AM</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>Arrival Date & Time</h4>
+                        <p>15 Nov 2024, 08:10 AM</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>Class</h4>
+                        <p>Economy</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4>Status</h4>
+                        <p class="highlight">Confirmed</p>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="#" class="btn-action btn-download"><i class="fas fa-download"></i> Download E-Ticket</a>
+                    <a href="index.html" class="btn-action btn-home"><i class="fas fa-home"></i> Back to Home</a>
+                </div>
+
+                <!-- Important Information -->
+                <div class="important-info">
+                    <h4><i class="fas fa-info-circle"></i> Important Information</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Please carry a valid government-issued photo ID (Aadhaar, Passport, etc.) for check-in.</li>
+                        <li><i class="fas fa-check"></i> Web check-in opens 48 hours and closes 60 minutes before departure.</li>
+                        <li><i class="fas fa-check"></i> Baggage allowance: 15kg check-in and 7kg cabin baggage per passenger.</li>
+                        <li><i class="fas fa-check"></i> Report to the airport at least 2 hours before departure for domestic flights.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>AIRLINK</h4>
+                <p>Your trusted partner for domestic air travel across India. Connecting cities, connecting people.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="flights.html">Flight Status</a></li>
+                    <li><a href="check-in.jpg">Web Check-in</a></li>
+                    <li><a href="baggage-info.jpg">Baggage Info</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="Support.html">Contact Us</a></li>
+                    <li><a href="Support.html">FAQs</a></li>
+                    <li><a href="Support.html">Refund Policy</a></li>
+                    <li><a href="Support.html">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect With Us</h4>
+                <ul>
+                    <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 AIRLINK. All rights reserved. Made with ❤️ in India.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
